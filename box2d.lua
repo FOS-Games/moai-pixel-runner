@@ -13,6 +13,25 @@ Stage = {
     h = 200
 }
 
+
+-- Background image inladen
+texture = MOAIImage.new()
+texture:load("limbo like background.jpg")
+
+image = MOAIGfxQuad2D.new()
+image:setTexture(texture)
+image:setRect(-160, -100, 160, 100)
+
+background = MOAIProp2D.new()
+background:setDeck(image)
+background:setLoc(0,0)
+
+-- background rendering layer
+bglayer = MOAILayer2D.new()
+
+-- main rendering layer
+layer = MOAILayer2D.new()
+
 -- open sim window
 MOAISim.openWindow( 'platformer_test', Screen.w, Screen.h )
 
@@ -30,10 +49,12 @@ world:setUnitsToMeters( 1 / scale )
 world:setDebugDrawFlags( MOAIBox2DWorld.DEBUG_DRAW_SHAPES + MOAIBox2DWorld.DEBUG_DRAW_JOINTS +
                          MOAIBox2DWorld.DEBUG_DRAW_PAIRS + MOAIBox2DWorld.DEBUG_DRAW_CENTERS )
 
--- main rendering layer
-layer = MOAILayer2D.new()
 layer:setViewport( viewport )
 layer:setBox2DWorld( world )
+
+-- Background adden
+bglayer:setViewport( viewport )
+bglayer:insertProp( background )
 
 -- char code for fonts
 charCode = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 _+-()[]{}|/?.,<>!~`@#$%^&*\'":;'
@@ -52,6 +73,7 @@ status.font = MOAIFont.new()
 status.font:load( 'kenvector_future.ttf' )
 status.font:preloadGlyphs( charCode, math.ceil( 4 * fontScale ), 72 )
 status:setFont( status.font )
+
 layer2 = MOAILayer2D.new()
 layer2:setViewport( viewport )
 layer2:insertProp( status )
@@ -360,4 +382,4 @@ end )
 
 -- render scene and begin simulation
 world:start()
-MOAIRenderMgr.setRenderTable( { layer, layer2 } )
+MOAIRenderMgr.setRenderTable( { bglayer, layer, layer2 } )
