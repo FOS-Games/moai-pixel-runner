@@ -56,11 +56,7 @@ layer:setBox2DWorld( world )
 bglayer:setViewport( viewport )
 bglayer:insertProp( background )
 
--- char code for fonts
-charCode = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 _+-()[]{}|/?.,<>!~`@#$%^&*\'":;'
 
--- to scale fonts
-fontScale = Screen.h / Stage.h
 
 -- status textbox
 status = MOAITextBox.new()
