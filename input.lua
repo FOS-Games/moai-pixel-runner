@@ -77,7 +77,6 @@ function input:initialize()
 
     )
 
-    --set Moai input events. overwrites other inputs
     if MOAIInputMgr.device.pointer then
         local pointerDown = false
         MOAIInputMgr.device.mouseLeft:setCallback(
@@ -86,10 +85,8 @@ function input:initialize()
                     handleClickOrTouchDown(MOAIInputMgr.device.pointer:getLoc())
                     pointerDown = true;
                 else
-                    --handleClickOrTouchUp(MOAIInputMgr.device.pointer:getLoc())
                     pointerDown = false;
                 end
-            -- Do nothing on mouseUp
             end
         )
         MOAIInputMgr.device.pointer:setCallback (
@@ -100,12 +97,8 @@ function input:initialize()
             end
         )
     else
-        -- If it isn't a mouse, its a touch screen... or some really weird device.
         MOAIInputMgr.device.touch:setCallback (
             function ( eventType, idx, x, y, tapCount )
-            --if (tapCount > 1) then
-            --	print("menu doesn't handle multitouch")
-            --else
                 if eventType == MOAITouchSensor.TOUCH_DOWN then
                     handleClickOrTouchDown(x,y)
                 elseif eventType == MOAITouchSensor.TOUCH_MOVE then
