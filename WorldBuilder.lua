@@ -7,14 +7,16 @@ local WorldBuilder = {}
 -- To change this template use File | Settings | File Templates.
 --
 
+local World
 
 ---------------------------------------
 --------Initialize function------------
 ---------------------------------------
-
 --Needs to be called before everything else
 --related to the WorldBuilder
-function WorldBuilder:Initialize(world)
+
+function WorldBuilder:Start(world)
+    World = world
     -- setup ground
     ground = {}
 
@@ -106,14 +108,14 @@ function WorldBuilder:Initialize(world)
 end
 
 
+
 ------------------------------------------
 -----------Update function----------------
 ------------------------------------------
 --no param
 --when registerd gets called from thread
 
-
-function WorldBuilder.update()
+function WorldBuilder.Update()
 
     local g1x, g1y = ground[1].body:getPosition()
     local g2x, g2y = ground[2].body:getPosition()

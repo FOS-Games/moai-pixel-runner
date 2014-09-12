@@ -26,11 +26,11 @@ function input:unregisterTapDownFunction ( tapDownFunction )
 end
 
 function input:registerKeyDownFunction (keyDownFunction,keyDown, functionOwner)
-    keyDownFunctions [keyDownFunction] = {[owner]=functionOwner,[key]=keyDown}
+    keyDownFunctions [keyDownFunction] = {["owner"]=functionOwner,["key"]=keyDown}
 end
 
 function input:registerKeyUpFunction(keyUpFunction,keyDown, functionOwner)
-    keyUpFunctions [keyUpFunction] = {[owner]=functionOwner,[key]=keyDown}
+    keyUpFunctions [keyUpFunction] = {["owner"]=functionOwner,["key"]=keyDown}
 end
 
 function input:unregisterKeyDownFunction (keyDownFunction)
@@ -42,16 +42,16 @@ function input:unregisterKeyUpFunction(keyUpFunction)
 end
 
 local function handleKeyDown(keydown)
-    for func, owner in pairs ( tapDownFunctions ) do
-        if (keydown == owner[key]) then
+    for func, owner in pairs ( keyDownFunctions ) do
+        if (keydown == owner["key"]) then
             func (owner)
         end
     end
 end
 
 local function handleKeyUp(keyUp)
-    for func, owner in pairs ( tapDownFunctions ) do
-        if (keyUp == owner[key]) then
+    for func, owner in pairs ( keyUpFunctions ) do
+        if (keyUp == owner["key"]) then
             func (owner)
         end
     end
@@ -64,20 +64,21 @@ local function handleClickOrTouchDown(x, y)
 end
 
 function input:initialize()
-
+    print("initialize")
     --set Moai keyboard input events
-    MOAIInputMgr.device.keyboard:setCallback(
-    function(key, down)
-        if down then
-            handleKeyDown(key)
-        else
-            handleKeyUp(key)
-        end
-    end
+    print(MOAIInputMgr.device.keyboard)
+    print(MOAIInputMgr.device.pointer)
+    if MOAIInputMgr.device.keyboard then
+        MOAIInputMgr.device.keyboard:setCallback(function(key, down)
+            if down then
+                handleKeyDown(key)
+            else
+                handleKeyUp(key)
+            end
 
-    )
+        end)
 
-    if MOAIInputMgr.device.pointer then
+    elseif MOAIInputMgr.device.pointer then
         local pointerDown = false
         MOAIInputMgr.device.mouseLeft:setCallback(
             function(isMouseDown)
@@ -92,7 +93,7 @@ function input:initialize()
         MOAIInputMgr.device.pointer:setCallback (
             function(x,y)
                 if pointerDown then
-                    self:handleClickOrTouchMove(x,y)
+                    --self:handleClickOrTouchMove(x,y)
                 end
             end
         )
@@ -110,6 +111,10 @@ function input:initialize()
             end
         )
     end
+    
 end
+
+
+
 
 return input

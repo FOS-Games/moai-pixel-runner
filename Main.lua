@@ -1,5 +1,5 @@
 require('mainRequirements')
-
+local input = require('input')
 -- scale set so screen is 20 meters tall
 scale = 10
 
@@ -72,8 +72,15 @@ Stage = {
         layer2:setViewport( viewport )
         layer2:insertProp( status )
 
-
-    WorldBuilder:Initialize(world)
+------------------------------------------------
+--------------start functions-------------------
+------------------------------------------------
+    local playerclass =require 'Player'
+    local player = playerclass:Start(world)
+    input:initialize()
+    WorldBuilder:Start(world)
+    input:registerKeyDownFunction(playerclass.MovementCallBack ,119 ,playerclass)
+    layer:insertProp(playerclass:getProp('Gnar.png'))
 
 
 -- REMOVE ground (body) als distance speler.x - ground.x > 160
@@ -93,46 +100,7 @@ end )
 
 
 
--- setup player
-player = {}
-player.onGround = false
-player.currentContactCount = 0
-player.move = {
-    left = false,
-    right = false
-}
-player.platform = nil
-player.doubleJumped = false
-player.verts = {
-    -5, 8,
-    -5, -9,
-    -4, -10,
-    4, -10,
-    5, -9,
-    5, 8
-}
-player.body = world:addBody( MOAIBox2DBody.DYNAMIC )
-player.body.tag = 'player'
-player.body:setFixedRotation( true )
-player.body:setMassData( 80 )
-player.body:resetMassData()
-player.fixtures = {
-    player.body:addPolygon( player.verts ),
-    player.body:addRect( -4.9, -10.1, 4.9, -9.9 )
-}
-player.fixtures[1]:setRestitution( 0 )
-player.fixtures[1]:setFriction( 0 )
-player.fixtures[2]:setSensor( true )
 
--- Texture player
-texture = MOAIGfxQuad2D.new()
-texture:setTexture('Gnar.png')
-texture:setRect(-14, -11, 14, 17)
-
-sprite = MOAIProp2D.new()
-sprite:setDeck(texture)
-sprite:setParent(player.body)
-layer:insertProp(sprite)
 
 
 
@@ -184,51 +152,7 @@ end )
 --    end
 --end )
 
--- player foot sensor
-function footSensorHandler( phase, fix_a, fix_b, arbiter )
-
-    if phase == MOAIBox2DArbiter.BEGIN then
-        player.currentContactCount = player.currentContactCount + 1
-        if fix_b:getBody().tag == 'platform' then
-            player.platform = fix_b:getBody()
-        end
-    elseif phase == MOAIBox2DArbiter.END then
-        player.currentContactCount = player.currentContactCount - 1
-        if fix_b:getBody().tag == 'platform' then
-            player.platform = nil
-        end
-    end
-    if player.currentContactCount == 0 then
-        player.onGround = false
-    else
-        player.onGround = true
-        player.doubleJumped = false
-    end
-end
-player.fixtures[2]:setCollisionHandler( footSensorHandler, MOAIBox2DArbiter.BEGIN + MOAIBox2DArbiter.END )
-
--- keyboard input handler
-function onKeyboard( key, down )
-    -- 'a' key
-    if key == 97 then
-        player.move.left = down
-    -- 'd' key
-    elseif key == 100 then
-        player.move.right = down
-    end
-    
-    -- jump
-    if key == 119 and down and ( player.onGround or not player.doubleJumped ) then
-        player.body:setLinearVelocity( player.body:getLinearVelocity(), 0 )
-        player.body:applyLinearImpulse( 0, 100 )
-        if not player.onGround then
-            player.doubleJumped = true
-        end
-    end
-end
-MOAIInputMgr.device.keyboard:setCallback( onKeyboard )
-
--- player movement thread
+-- playerclass movement thread
 playerThread = MOAIThread.new()
 playerThread:run( function()
     while true do

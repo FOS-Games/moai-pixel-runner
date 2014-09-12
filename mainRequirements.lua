@@ -11,5 +11,6 @@ local mainRequirements = {}
 tools = require('tools')
 input = require('input')
 WorldBuilder=require('WorldBuilder')
+player =  require('Player')
 
 return mainRequirements
