@@ -1,3 +1,12 @@
+tools = require("tools")
+
+
+
+
+
+
+
+
 -- scale set so screen is 20 meters tall
 scale = 10
 
@@ -15,15 +24,9 @@ Stage = {
 
 
 -- Background image inladen
-texture = MOAIImage.new()
-texture:load("limbo like background.jpg")
 
-image = MOAIGfxQuad2D.new()
-image:setTexture(texture)
-image:setRect(-160, -100, 160, 100)
 
-background = MOAIProp2D.new()
-background:setDeck(image)
+background =  tools:newprop("limbo like background.jpg", Stage.w,Stage.h)
 background:setLoc(0,0)
 
 -- background rendering layer
@@ -56,8 +59,8 @@ layer:setBox2DWorld( world )
 bglayer:setViewport( viewport )
 bglayer:insertProp( background )
 
-
-
+local charCode = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 _+-()[]{}|/?.,<>!~`@#$%^&*\'":;'
+local fontScale = Screen.h / Stage.h
 -- status textbox
 status = MOAITextBox.new()
 status:setRect( -160 * fontScale, -100 * fontScale, 160 * fontScale, 100 * fontScale )
@@ -65,10 +68,8 @@ status:setScl( 1 / fontScale )
 status:setYFlip( true )
 status:setColor( 1, 1, 1 )
 status:setString( 'status' )
-status.font = MOAIFont.new()
-status.font:load( 'kenvector_future.ttf' )
-status.font:preloadGlyphs( charCode, math.ceil( 4 * fontScale ), 72 )
-status:setFont( status.font )
+statusfont = tools:registerFont('kenvector_future.ttf', fontScale)
+status:setFont( statusfont )
 
 layer2 = MOAILayer2D.new()
 layer2:setViewport( viewport )
