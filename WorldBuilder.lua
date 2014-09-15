@@ -20,7 +20,7 @@ function WorldBuilder:Start(world)
     -- setup ground
     ground = {}
 
-    groundSpeed = -20
+    groundSpeed = -100
 
     -- GROUND 1 ligt aan het begin links uit het scherm
     -- GROUND 2 ligt aan het begin in het midden van het scherm

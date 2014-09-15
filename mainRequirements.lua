@@ -8,9 +8,10 @@
 local mainRequirements = {}
 
 
-tools = require('tools')
-input = require('input')
-WorldBuilder=require('WorldBuilder')
-player =  require('Player')
+toolsclass = require('tools')
+inputclass = require('input')
+WorldBuilderclass=require('WorldBuilder')
+playerclass =  require('Player')
+SceneClass = require ('Scene')
 
 return mainRequirements
