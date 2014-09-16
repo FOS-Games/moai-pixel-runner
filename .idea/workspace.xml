@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a3517bad-01d8-40c3-b4bd-dadc439260e7" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/64x64 balk.png" afterPath="$PROJECT_DIR$/64x64 balk.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Main.lua" afterPath="$PROJECT_DIR$/Main.lua" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/WorldBuilder.lua" afterPath="$PROJECT_DIR$/WorldBuilder.lua" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mainRequirements.lua" afterPath="$PROJECT_DIR$/mainRequirements.lua" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platform.lua" afterPath="$PROJECT_DIR$/platform.lua" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tools.lua" afterPath="$PROJECT_DIR$/tools.lua" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="moai-pixel-runner.iws" />
@@ -61,11 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="platform.lua" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="platform.lua" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/platform.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5862069" vertical-offset="663" max-vertical-offset="1343">
-              <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1377">
+              <caret line="49" column="7" selection-start-line="49" selection-start-column="7" selection-end-line="49" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -101,11 +97,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WorldBuilder.lua" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="WorldBuilder.lua" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/WorldBuilder.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="3162">
-              <caret line="19" column="18" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.5862069" vertical-offset="306" max-vertical-offset="3264">
+              <caret line="39" column="40" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -114,8 +110,8 @@
       <file leaf-file-name="Main.lua" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Main.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1683" max-vertical-offset="3536">
-              <caret line="112" column="34" selection-start-line="112" selection-start-column="34" selection-end-line="112" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2040" max-vertical-offset="3536">
+              <caret line="150" column="26" selection-start-line="150" selection-start-column="26" selection-end-line="150" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -141,8 +137,8 @@
         <option value="$PROJECT_DIR$/tools.lua" />
         <option value="$PROJECT_DIR$/mainRequirements.lua" />
         <option value="$PROJECT_DIR$/Main.lua" />
-        <option value="$PROJECT_DIR$/WorldBuilder.lua" />
         <option value="$PROJECT_DIR$/platform.lua" />
+        <option value="$PROJECT_DIR$/WorldBuilder.lua" />
       </list>
     </option>
   </component>
@@ -503,15 +499,15 @@
       <workItem from="1410513081989" duration="2819000" />
       <workItem from="1410529413255" duration="287000" />
       <workItem from="1410766318547" duration="6518000" />
-      <workItem from="1410854185399" duration="14816000" />
+      <workItem from="1410854185399" duration="17560000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33859000" />
+    <option name="totallyTimeSpent" value="36603000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -772,26 +768,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/platform.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1377">
+          <caret line="49" column="7" selection-start-line="49" selection-start-column="7" selection-end-line="49" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Main.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1683" max-vertical-offset="3536">
-          <caret line="112" column="34" selection-start-line="112" selection-start-column="34" selection-end-line="112" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2040" max-vertical-offset="3536">
+          <caret line="150" column="26" selection-start-line="150" selection-start-column="26" selection-end-line="150" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/WorldBuilder.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="3162">
-          <caret line="19" column="18" selection-start-line="19" selection-start-column="18" selection-end-line="19" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/platform.lua">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5862069" vertical-offset="663" max-vertical-offset="1343">
-          <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.5862069" vertical-offset="306" max-vertical-offset="3264">
+          <caret line="39" column="40" selection-start-line="39" selection-start-column="40" selection-end-line="39" selection-end-column="40" />
           <folding />
         </state>
       </provider>

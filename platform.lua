@@ -13,6 +13,8 @@ local toolsclass = require 'tools'
 
 
 function platform:initialize(width, height, level, world, layer)
+    self.width=width
+    self.height=height
     self.platformBody = world:addBody(MOAIBox2DBody.KINEMATIC)
     self.platformBody:addRect(-((width/2)*16),-((height/2)*16),((width/2)*16),((height/2)*16))
     self.ground = {}
@@ -43,7 +45,7 @@ function platform:initialize(width, height, level, world, layer)
         end
     end
     for i = 1, width , 1 do
-        self.overlay[i]:setLoc(startw+((i-1)*16),8)
+        self.overlay[i]:setLoc(startw+((i-1)*16),(height/2)*16-8)
         layer:insertProp(self.overlay[i])
     end
 
@@ -57,13 +59,13 @@ function platform:getBody()
 end
 
 function platform:destroy()
-    self.body:destroy()
+    self.platformBody:destroy()
 
-    for prop in self.ground do
-        layer:removeProp(prop)
+    for i=1,self.height*self.width,1  do
+        layer:removeProp(self.ground[i])
     end
-    for prop in self.overlay do
-        layer:removeProp(prop)
+    for i=1,self.width,1  do
+        layer:removeProp(self.overlay[i])
     end
 
 end

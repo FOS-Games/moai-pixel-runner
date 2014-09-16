@@ -19,12 +19,14 @@ level = 'Level1'
 --related to the WorldBuilder
 require 'platform'
 function WorldBuilder:randomPlatform(width,height, jumpwidth)
-    local pwidth=width + (320/16)
+    print('width: '..width..' || Height: '..height..' || jump: '..jumpwidth)
+    local pwidth=width + (160/16)
+    print('weird  width = '.. pwidth)
     rplatform = platform:new(pwidth,1+height,level,World,worldlayer)
-    local platformbody=rplatform.getBody()
+    local platformbody=rplatform:getBody()
     platformbody:setLinearVelocity(groundSpeed,0)
-    platformbody:setTransform(320+(jumpwidth*16),(-(200/2))+((height+1)*16))
-    return platformbody
+    platformbody:setTransform(320+(jumpwidth*16),(-(200/2))+((height)*16))
+    return platformbody,rplatform
 end
 
 function WorldBuilder:Start(world, layer)
@@ -35,12 +37,12 @@ function WorldBuilder:Start(world, layer)
 
     groundSpeed = -100
 
-    ground[1]= WorldBuilder:randomPlatform(1,1,1)
-    ground[1]:setTransform(-310,(-(200/2))+((1)*16))
-    ground[2]= WorldBuilder:randomPlatform(0,0,0)
-    ground[2]:setTransform(0,(-(200/2))+((1)*16))
-    ground[3]= WorldBuilder:randomPlatform(0,0,0)
-    ground[3]:setTransform(320,(-(200/2))+((1)*16))
+    ground[1].body, ground[1].object= WorldBuilder:randomPlatform(1,1,1)
+    ground[1]:setTransform(-310,(-(200/2)))
+    ground[1].body, ground[1].object= WorldBuilder:randomPlatform(0,0,0)
+    ground[2]:setTransform(0,(-(200/2)))
+    ground[1].body, ground[1].object= WorldBuilder:randomPlatform(0,0,0)
+    ground[3]:setTransform(320,(-(200/2)))
 
     --[[-- GROUND 1 ligt aan het begin links uit het scherm
     -- GROUND 2 ligt aan het begin in het midden van het scherm
@@ -140,11 +142,15 @@ function WorldBuilder.Update()
 
     local g1x, g1y = ground[1]:getPosition()
 
-
-    if(g1x<=320) then
+    jumpcorrection = 0
+    if(g1x<=-320) then
         ground[1]:destroy()
         ground[1]=ground[2]
-        ground[3]=randomPlatform(math.random(0,5), math.random(0,2), math.random(0,3))
+        ground[2]=ground[3]
+        ground[3] = nil
+        width = math.random(0,5)
+        ground[3]=WorldBuilder:randomPlatform(width, math.random(0,2), math.random(0,6)+jumpcorrection)
+        jumpcorrection=width
     end
 
     --[[local g2x, g2y = ground[2].body:getPosition()
