@@ -35,23 +35,42 @@ end
 
 function tools:loadimage( filename, width, height )
     if width == nil or height == nil then
-        local img = MOAIImage.new ()
-        img:load ( filename )
-        width, height = img:getSize ()
-        img = nil
+        width, height = tools:getImageSize(filename)
     end
 
     local gfxQuad = textureFromCache ( filename, width, height )
     return gfxQuad
 end
 
+function tools:getImageSize(filename)
 
+    local img = MOAIImage.new ()
+    img:load ( filename )
+    local width, height = img:getSize ()
+    img = nil
+    return width,height
+end
 
 function tools:registerFont (fontpath, fontScale)
     local font = MOAIFont.new()
     font:load(fontpath)
     font:preloadGlyphs( charCode, math.ceil( 4 * fontScale ), 72 )
     return font
+end
+
+function tools:generateKinematicBox(world,filename)
+
+    local  width, height = tools:getImageSize(filename)
+
+    local kinematicBody = world:addBody(MOAIBox2DBody.KINEMATIC)
+    local body = kinematicBody:addRect(-width/2, -height/2, width/2, height/2 )
+
+    local prop = tools:newprop(filename, width,height)
+    prop:setParent(body)
+
+    return body,prop
+
+
 end
 
 return tools
