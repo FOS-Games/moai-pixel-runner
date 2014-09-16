@@ -10,7 +10,7 @@ local toolsclass = require 'tools'
 
 platform = class('platform')
 
-function platform:initialize(width, height, level, texture, world, layer)
+function platform:initialize(width, height, level, world, layer)
     self.platformBody = world:addBody(MOAIBox2DBody.KINEMATIC)
     self.platformBody:addRect(-((width/2)*16),-((height/2)*16),((width/2)*16),((height/2)*16))
     self.ground = {}
@@ -52,6 +52,18 @@ end
 
 function platform:getBody()
     return self.platformBody
+end
+
+function platform:destroy()
+    self.body:destroy()
+
+    for prop in self.ground do
+        layer:removeProp(prop)
+    end
+    for prop in self.overlay do
+        layer:removeProp(prop)
+    end
+
 end
 
 

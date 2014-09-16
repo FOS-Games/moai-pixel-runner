@@ -1,4 +1,5 @@
 local WorldBuilder = {}
+require 'platform'
 --
 -- Created by IntelliJ IDEA.
 -- User: Lars
@@ -8,6 +9,8 @@ local WorldBuilder = {}
 --
 
 local World
+local worldlayer
+level = 'Level1'
 
 ---------------------------------------
 --------Initialize function------------
@@ -15,14 +18,30 @@ local World
 --Needs to be called before everything else
 --related to the WorldBuilder
 
-function WorldBuilder:Start(world)
+local function randomPlatform(width,height, jumpwidth)
+    local pwidth=width + (320/16)
+    local rplatform = platform:new(pwidth,1+height,level,World,worldlayer)
+    local platformbody=rplatform.getBody()
+    platformbody:setLinearVelocity(groundSpeed,0)
+    platformbody:setTransform(320+(jumpwidth*16),(-(200/2))+((height+1)*16))
+end
+
+function WorldBuilder:Start(world, layer)
     World = world
+    worldlayer = layer
     -- setup ground
     ground = {}
 
     groundSpeed = -100
 
-    -- GROUND 1 ligt aan het begin links uit het scherm
+    ground[1]= randomPlatform(0,0,0)
+    ground[1]:setTransform(-310,(-(200/2))+((1)*16))
+    ground[2]= randomPlatform(0,0,0)
+    ground[2]:setTransform(0,(-(200/2))+((1)*16))
+    ground[3]= randomPlatform(0,0,0)
+    ground[3]:setTransform(320,(-(200/2))+((1)*16))
+
+    --[[-- GROUND 1 ligt aan het begin links uit het scherm
     -- GROUND 2 ligt aan het begin in het midden van het scherm
     -- GROUND 3 ligt aan het begin rechts uit het scherm
 
@@ -104,8 +123,9 @@ function WorldBuilder:Start(world)
     ground[3].fixtures = {
         ground[3].body:addChain( ground[3].verts )
     }
-    ground[3].fixtures[1]:setFriction( 0.3 )
+    ground[3].fixtures[1]:setFriction( 0.3 )]]
 end
+
 
 
 
@@ -117,8 +137,16 @@ end
 
 function WorldBuilder.Update()
 
-    local g1x, g1y = ground[1].body:getPosition()
-    local g2x, g2y = ground[2].body:getPosition()
+    local g1x, g1y = ground[1]:getPosition()
+
+
+    if(g1x<=320) then
+        ground[1]:destroy()
+        ground[1]=ground[2]
+        ground[3]=randomPlatform(math.random(0,5), math.random(0,2), math.random(0,3))
+    end
+
+    --[[local g2x, g2y = ground[2].body:getPosition()
     local g3x, g3y = ground[3].body:getPosition()
 
     if g1x < -320 then
@@ -134,7 +162,7 @@ function WorldBuilder.Update()
     if g3x < -320 then
         print(g3x)
         ground[3].body:setTransform(320, -60)
-    end
+    end]]
 
 end
 

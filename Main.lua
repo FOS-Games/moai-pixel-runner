@@ -76,9 +76,9 @@ Stage = {
 ------------------------------------------------
     --local playerclass =require 'Player'
     local player = playerclass:Start(world)
-    local player1 = playerclass:Start(world)
+    --local player1 = playerclass:Start(world)
     inputclass:initialize()
-    WorldBuilderclass:Start(world)
+    WorldBuilderclass:Start(world,layer)
     inputclass:registerKeyDownFunction(playerclass.MovementCallBack ,119 ,playerclass)
     layer:insertProp(playerclass:getProp('Gnar.png'))
 
@@ -110,7 +110,7 @@ platforms = {}
 
 platforms[3] = {}
 
-platforms[3].object = platform:new(2,2,'Level1','Default.png',world,layer)
+platforms[3].object = platform:new(5,2,'Level1',world,layer)
 platforms[3].body = platforms[3].object:getBody()
 
 platforms[3].body:setLinearVelocity( -80, 0 )
