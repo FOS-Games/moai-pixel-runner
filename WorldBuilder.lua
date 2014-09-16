@@ -1,5 +1,5 @@
 local WorldBuilder = {}
-require 'platform'
+
 --
 -- Created by IntelliJ IDEA.
 -- User: Lars
@@ -17,13 +17,14 @@ level = 'Level1'
 ---------------------------------------
 --Needs to be called before everything else
 --related to the WorldBuilder
-
-local function randomPlatform(width,height, jumpwidth)
+require 'platform'
+function WorldBuilder:randomPlatform(width,height, jumpwidth)
     local pwidth=width + (320/16)
-    local rplatform = platform:new(pwidth,1+height,level,World,worldlayer)
+    rplatform = platform:new(pwidth,1+height,level,World,worldlayer)
     local platformbody=rplatform.getBody()
     platformbody:setLinearVelocity(groundSpeed,0)
     platformbody:setTransform(320+(jumpwidth*16),(-(200/2))+((height+1)*16))
+    return platformbody
 end
 
 function WorldBuilder:Start(world, layer)
@@ -34,11 +35,11 @@ function WorldBuilder:Start(world, layer)
 
     groundSpeed = -100
 
-    ground[1]= randomPlatform(0,0,0)
+    ground[1]= WorldBuilder:randomPlatform(1,1,1)
     ground[1]:setTransform(-310,(-(200/2))+((1)*16))
-    ground[2]= randomPlatform(0,0,0)
+    ground[2]= WorldBuilder:randomPlatform(0,0,0)
     ground[2]:setTransform(0,(-(200/2))+((1)*16))
-    ground[3]= randomPlatform(0,0,0)
+    ground[3]= WorldBuilder:randomPlatform(0,0,0)
     ground[3]:setTransform(320,(-(200/2))+((1)*16))
 
     --[[-- GROUND 1 ligt aan het begin links uit het scherm

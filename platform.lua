@@ -1,4 +1,6 @@
+
 local class=require 'external/middleclass'
+platform = class('platform')
 local toolsclass = require 'tools'
 --
 -- Created by IntelliJ IDEA.
@@ -8,7 +10,7 @@ local toolsclass = require 'tools'
 -- To change this template use File | Settings | File Templates.
 --
 
-platform = class('platform')
+
 
 function platform:initialize(width, height, level, world, layer)
     self.platformBody = world:addBody(MOAIBox2DBody.KINEMATIC)
