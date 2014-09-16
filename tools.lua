@@ -15,10 +15,11 @@ local charCode = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
 
 
 
-local function textureFromCache ( name, width, height )
+local function textureFromCache ( name1, width, height )
+    local name = name1 .. tostring(width) .. tostring(height)
     if textureCache [ name ] == nil then
         textureCache[name] = MOAIGfxQuad2D.new ()
-        textureCache[name]:setTexture ( name )
+        textureCache[name]:setTexture ( name1 )
         textureCache[name]:setRect ( -width/2, -height/2, width/2, height/2 )
     end
     return textureCache [ name ]
@@ -27,9 +28,10 @@ end
 function tools:newprop ( filename, width, height )
 
     local gfxQuad = self:loadimage ( filename, width, height )
+    --gfxQuad:setRect( -width/2, -height/2, width/2, height/2 )
     local prop = MOAIProp2D.new ()
     prop:setDeck ( gfxQuad )
-    prop.filename = filename
+    --prop.filename = filename
     return prop
 end
 
@@ -62,11 +64,11 @@ function tools:generateKinematicBox(world,filename)
 
     local  width, height = tools:getImageSize(filename)
 
-    local kinematicBody = world:addBody(MOAIBox2DBody.KINEMATIC)
-    local body = kinematicBody:addRect(-width/2, -height/2, width/2, height/2 )
+    dynamicBody = world:addBody(MOAIBox2DBody.KINEMATIC)
+    local body = dynamicBody:addRect(-width/2, -height/2, width/2, height/2 )
 
-    local prop = tools:newprop(filename, width,height)
-    prop:setParent(body)
+    local prop = self:newprop(filename, width,height)
+    prop:setParent(dynamicBody)
 
     return body,prop
 

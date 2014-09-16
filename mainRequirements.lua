@@ -14,4 +14,6 @@ WorldBuilderclass=require('WorldBuilder')
 playerclass =  require('Player')
 SceneClass = require ('Scene')
 
+require 'platform'
+
 return mainRequirements
