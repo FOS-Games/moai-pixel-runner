@@ -86,7 +86,7 @@ end
 
 function Player:getProp(filename)
 
-    local prop = tools:newprop(filename)
+    local prop = tools:newprop(filename,28,28)
     prop:setParent(player.body)
     return prop
 
@@ -100,6 +100,32 @@ end
 
 function Player:Update()
 
+        local dx, dy = player.body:getLinearVelocity()
+        if player.onGround then
+            if player.move.right and not player.move.left then
+                dx = 50
+            elseif player.move.left and not player.move.right then
+                dx = -50
+            else
+                dx = 0
+            end
+        else
+            if player.move.right and not player.move.left and dx <= 0 then
+                dx = 25
+            elseif player.move.left and not player.move.right and dx >= 0 then
+                dx = -25
+            end
+        end
+        if player.platform then
+            dx = dx + player.platform:getLinearVelocity()
+        end
+        player.body:setLinearVelocity( dx, dy )
+
+        local playerx, playery = player.body:getPosition()
+        if(playerx <-100) then
+            local xtravel = ((playerx*-1)-100)^2
+            player.body:setLinearVelocity( 20, dy )
+            end
 end
 
 -------------------------------------------

@@ -1,5 +1,4 @@
 require('mainRequirements')
-local input = require('input')
 -- scale set so screen is 20 meters tall
 scale = 10
 
@@ -19,7 +18,7 @@ Stage = {
 ------------------------------------------
 
         -- Background image inladen
-        background =  tools:newprop("limbo like background.jpg", Stage.w,Stage.h)
+        background =  toolsclass:newprop("limbo like background.jpg", Stage.w,Stage.h)
         background:setLoc(0,0)
 
         -- background rendering layer
@@ -65,7 +64,7 @@ Stage = {
         status:setYFlip( true )
         status:setColor( 1, 1, 1 )
         status:setString( 'status' )
-        statusfont = tools:registerFont('kenvector_future.ttf', fontScale)
+        statusfont = toolsclass:registerFont('kenvector_future.ttf', fontScale)
         status:setFont( statusfont )
 
         layer2 = MOAILayer2D.new()
@@ -75,11 +74,12 @@ Stage = {
 ------------------------------------------------
 --------------start functions-------------------
 ------------------------------------------------
-    local playerclass =require 'Player'
+    --local playerclass =require 'Player'
     local player = playerclass:Start(world)
-    input:initialize()
-    WorldBuilder:Start(world)
-    input:registerKeyDownFunction(playerclass.MovementCallBack ,119 ,playerclass)
+    --local player1 = playerclass:Start(world)
+    inputclass:initialize()
+    WorldBuilderclass:Start(world,layer)
+    inputclass:registerKeyDownFunction(playerclass.MovementCallBack ,119 ,playerclass)
     layer:insertProp(playerclass:getProp('Gnar.png'))
 
 
@@ -92,7 +92,8 @@ groundThread = MOAIThread.new()
 groundThread:run( function()
     while true do
 
-      WorldBuilder:Update()
+      WorldBuilderclass:Update()
+      playerclass:Update()
       coroutine.yield()
 
     end
@@ -108,16 +109,37 @@ end )
 platforms = {}
 
 platforms[3] = {}
+
+platforms[3].object = platform:new(5,2,'Level1',world,layer)
+platforms[3].body = platforms[3].object:getBody()
+
+platforms[3].body:setLinearVelocity( -80, 0 )
+--[[local pbody,pprop = toolsclass:generateKinematicBox(world,'64x64 balk.png')
+pprop:setLoc(-10,-10)
+layer:insertProp(pprop)
 platforms[3].body = world:addBody( MOAIBox2DBody.KINEMATIC, 130, -34 )
 platforms[3].body.tag = 'platform'
 platforms[3].body:setLinearVelocity( -80, 0 )
 --platforms[3].limits = {
 --    xMax = 160, xMin = -160,
---    yMax = -43, yMin = -45 
+--    yMax = -43, yMin = -45
 --}
 platforms[3].fixtures = {
     platforms[3].body:addRect( -10, -10, 10, 10 )
 }
+prop = {}
+for i=0,3,1 do
+    prop[i] = toolsclass:newprop('64x64 balk.png',10,10)
+end
+prop[0]:setLoc(-5,5)
+prop[1]:setLoc(5,-5)
+prop[2]:setLoc(5,5)
+prop[3]:setLoc(-5,-5)
+
+for i=0,1,1 do
+    prop[i]:setParent(platforms[3].body)
+    layer:insertProp(prop[i])
+end]]
 
 
 platformThread = MOAIThread.new()
@@ -125,9 +147,12 @@ platformThread:run( function()
     while true do
       local x, y = platforms[3].body:getPosition()
       
-      if x < -200 then
+      if x < -100 then
         platforms[3].body:setTransform(200, math.random(-80, 80))
+
+
       end
+
       
       coroutine.yield()
     end
@@ -155,29 +180,7 @@ end )
 -- playerclass movement thread
 playerThread = MOAIThread.new()
 playerThread:run( function()
-    while true do
-        local dx, dy = player.body:getLinearVelocity()
-        if player.onGround then
-            if player.move.right and not player.move.left then
-                dx = 50
-            elseif player.move.left and not player.move.right then
-                dx = -50
-            else
-                dx = 0
-            end
-        else
-            if player.move.right and not player.move.left and dx <= 0 then
-                dx = 25
-            elseif player.move.left and not player.move.right and dx >= 0 then
-                dx = -25
-            end
-        end
-        if player.platform then
-            dx = dx + player.platform:getLinearVelocity()
-        end
-        player.body:setLinearVelocity( dx, dy )
-        coroutine.yield()
-    end
+
 end )
 
 -- update function for status box
